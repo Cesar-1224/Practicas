@@ -1,4 +1,5 @@
 # =========================================
+# Grabacion asccinema: https://asciinema.org/a/p4GY3cwpQyxttiPgQ02dPyybm
 # Programa: Inversión de cadena
 # Autor: Perez Garcia Cesar Michael
 # Descripción: Solicita una cadena al usuario, la invierte y muestra el resultado en consola
