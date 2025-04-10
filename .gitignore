@@ -1,0 +1,5 @@
+# Ignorar archivos objeto (.o)
+*.o
+
+# Ignorar ejecutables llamados p seguido de números (como p1, p2, ..., p50)
+p[0-9]*
