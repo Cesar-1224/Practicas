@@ -1,5 +1,4 @@
 # =========================================
-# Grabacion asciinema:     https://asciinema.org/a/BrIsB1TIBbo5Td4TWwobCmuYh
 # Programa: Conversión de Celsius a Fahrenheit
 # Autor: Perez Garcia Cesar Michael
 # Descripción: Solicita una temperatura en grados Celsius, la convierte a Fahrenheit y muestra el resultado
