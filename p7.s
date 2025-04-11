@@ -1,8 +1,7 @@
 /*
-
 # =========================================
 # Programa: Búsqueda binaria de un número en un arreglo
-# Autor: cesar perez  garcia.
+# Autor: Perez Garcia Cesar Michael
 # Descripción: Busca el número 8 en un arreglo predefinido y muestra el resultado en consola
 # Programa en Python y Ensamblador
 # =========================================
