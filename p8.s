@@ -3,7 +3,7 @@
 # Programa: Inversión de cadena con Burbuja
 # Autor: Perez Garcia Cesar Michael
 # Descripción: Metodo Burbuja
-# Python y Ensamblador
+# Python y Ensamblador 
 # =========================================
 
 def main():
