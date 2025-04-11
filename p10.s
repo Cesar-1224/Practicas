@@ -1,6 +1,6 @@
 # =========================================
 # Programa: Inversión de cadena con Selección
-# Autor: Pérez García César Michael
+# Autor: Perez Garcia Cesar Michael
 # Descripción: Solicita una cadena al usuario y aplica algoritmo de selección para invertirla
 # Código en Python y Ensamblador
 # =========================================
