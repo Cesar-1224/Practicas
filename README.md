@@ -5,7 +5,7 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
 **Autor**: Perez Garcia Cesar Michael  
 **Créditos**: Agradecimiento al Profesor [René Solís Reyes](https://github.com/IoTeacher) por su soporte técnico y guía durante las prácticas.  
 
----
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Demostraciones por práctica  
 
@@ -42,7 +42,7 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
 | p29      | [Ver](https://asciinema.org/a/PupFiSZdtCoBpTKAryOzacLnS) |
 | p30      | [Ver](https://asciinema.org/a/34tI7lRkDZPfJk3QXQWxjXrSQ) |
 
----
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🛠 Requisitos  
 
@@ -52,9 +52,9 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
   - Linker GNU (`ld`)  
 - **Grabaciones**: Terminal compatible con [asciinema](https://asciinema.org).  
 
----
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Nota adicional  
 Las prácticas fueron desarrolladas como parte del curso de ensamblador ARM64.  
 Para consultas técnicas, visita el [Tutor de ARM64 del Prof. Solís](https://chatgpt.com/g/g-ikW4IppBT-arm64-assembly-tutor-for-raspbianos-linux). 
-(Se me olvido poner el comentario en Idoceo de lo que me paso, tuve unos errores en la subida de archivos y me elimino varios programas que ya estan hechos nuevamente.)
+Se me olvido poner el comentario en Idoceo de lo que me paso, tuve unos errores en la subida de archivos y me elimino varios programas que ya estan hechos nuevamente.
