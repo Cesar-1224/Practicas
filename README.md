@@ -57,4 +57,6 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
 ## Nota adicional  
 Las prácticas fueron desarrolladas como parte del curso de ensamblador ARM64.  
 Para consultas técnicas, visita el [Tutor de ARM64 del Prof. Solís](https://chatgpt.com/g/g-ikW4IppBT-arm64-assembly-tutor-for-raspbianos-linux). 
-Se me olvido poner el comentario en Idoceo de lo que me paso, tuve unos errores en la subida de archivos y me elimino varios programas que ya estan hechos nuevamente.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Se me olvido poner el comentario en Idoceo de lo que me paso, tuve unos errores en la subida de archivos y me elimino varios programas que ya estan hechos nuevamente.|
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
