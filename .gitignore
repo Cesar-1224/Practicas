@@ -1,5 +1,12 @@
-# Ignorar archivos objeto (.o)
-*.o
+# Ignorar todo por defecto
+*
 
-# Ignorar ejecutables llamados p seguido de números (como p1, p2, ..., p50)
+# Pero NO ignorar los archivos .s (prácticas en ensamblador)
+!*.s
+
+# Ignorar archivos objeto y ejecutables temporales
+*.o
 p[0-9]*
+
+# Pero NO ignorar los archivos .s con el formato pX.s
+!p*.s
