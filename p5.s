@@ -1,9 +1,7 @@
 /*
-https://asciinema.org/a/688591
-
 # =========================================
 # Programa: Encontrar el mínimo en un arreglo
-# Autor: cesar michael perez garcia. 
+# Autor: Cesar Michael Perez Garcia. 
 # Descripción: Encuentra el valor mínimo en un arreglo precargado y muestra el resultado en consola.
 # Codigo en python y ensamblador
 # =========================================
