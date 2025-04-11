@@ -3,7 +3,7 @@
 Este repositorio contiene una colección de prácticas realizadas en lenguaje ensamblador ARM (arquitectura ARM64), desde la práctica 1 hasta la práctica 30. Cada práctica incluye una demostración en video usando [asciinema](https://asciinema.org).  
 
 **Autor**: Perez Garcia Cesar Michael  
-**Créditos**: Agradecimiento al Profesor [René Solís Reyes](https://chatgpt.com/g/g-ikW4IppBT-arm64-assembly-tutor-for-raspbianos-linux) por su soporte técnico y guía durante las prácticas.  
+**Créditos**: Agradecimiento al Profesor [René Solís Reyes](https://github.com/IoTeacher) por su soporte técnico y guía durante las prácticas.  
 
 ---
 
@@ -28,19 +28,19 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
 | p15      | [Ver](https://asciinema.org/a/r0Vtq5WCwXnfqKQVQSnt3Byuj) |
 | p16      | [Ver](https://asciinema.org/a/Mg0BPZYIl5Somd0Wj5cPrKHgy) |
 | p17      | [Ver](https://asciinema.org/a/dbF042ao3HlADiTBaBZg2oDa6) |
-| p18      | [Ver]() |
-| p19      | [Ver]() |
-| p20      | [Ver]() |
-| p21      | [Ver]() |
-| p22      | [Ver]() |
-| p23      | [Ver]() |
-| p24      | [Ver]() |
-| p25      | [Ver]() |
-| p26      | [Ver]() |
-| p27      | [Ver]() |
-| p28      | [Ver]() |
-| p29      | [Ver]() |
-| p30      | [Ver]() |
+| p18      | [Ver](https://asciinema.org/a/wKB0rXtlcwyn2jXKyzjG4oqhh) |
+| p19      | [Ver](https://asciinema.org/a/qymRpKy5gXcFcYsWEz83qG0Bp) |
+| p20      | [Ver](https://asciinema.org/a/g3YeRwwK4oiUksDIfGAqHqwjF) |
+| p21      | [Ver](https://asciinema.org/a/zDWYmQpmNJoJy3xOV8p831J6o) |
+| p22      | [Ver](https://asciinema.org/a/qEXCGSttOkEFjSoQDL3jkyzG6) |
+| p23      | [Ver](https://asciinema.org/a/0oGuUDnulYnDXuvVKS0FB6KIF) |
+| p24      | [Ver](https://asciinema.org/a/qaSdobo2FQX8PXKBGmJhhzwhD) |
+| p25      | [Ver](https://asciinema.org/a/wgnP0vLgI5Z5142nW2J1KUQsH) |
+| p26      | [Ver](https://asciinema.org/a/1XmxvWTLt5K9ubXkETieXmlAR) |
+| p27      | [Ver](https://asciinema.org/a/yVhMqplaM5dt0Alf874UgPlG8) |
+| p28      | [Ver](https://asciinema.org/a/jCrx3u70De0YxRNmU028UFtju) |
+| p29      | [Ver](https://asciinema.org/a/PupFiSZdtCoBpTKAryOzacLnS) |
+| p30      | [Ver](https://asciinema.org/a/34tI7lRkDZPfJk3QXQWxjXrSQ) |
 
 ---
 
@@ -54,6 +54,6 @@ Este repositorio contiene una colección de prácticas realizadas en lenguaje en
 
 ---
 
-## 🌟 Nota adicional  
+## Nota adicional  
 Las prácticas fueron desarrolladas como parte del curso de ensamblador ARM64.  
 Para consultas técnicas, visita el [Tutor de ARM64 del Prof. Solís](https://chatgpt.com/g/g-ikW4IppBT-arm64-assembly-tutor-for-raspbianos-linux).  
