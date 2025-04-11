@@ -3,7 +3,7 @@
 
 # =========================================
 # Programa: Búsqueda lineal de un número en un arreglo
-# Autor: cesar michael perez garcia.
+# Autor: Cesar Michael Perez Garcia.
 # Descripción: Busca el número 8 en un arreglo predefinido y muestra el resultado en consola
 # Codigo en ensamblador y Python
 # =========================================
