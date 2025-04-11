@@ -1,9 +1,7 @@
 /*
-
-
 # =========================================
 # Programa: Encontrar el máximo en un arreglo
-# Autor:  cesar michael perez garcia.
+# Autor:  Cesar Michael Perez Garcia.
 # Descripción: Encuentra el valor máximo en un arreglo precargado y muestra el resultado en consola.
 # Codigo en python y ensamblador
 # =========================================
