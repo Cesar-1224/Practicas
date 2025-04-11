@@ -1,19 +1,19 @@
 /*
  * =========================================
- * Programa: Operaciones AND, OR, XOR a nivel de bits (p18)
+ * Programa: Establecer, borrar y alternar bits (p20)
  * Autor: Perez Garcia Cesar Michael
- * Descripcion: Realiza operaciones AND, OR, XOR a nivel de bits en una cadena
- * ingresada por el usuario
+ * Descripcion: Realiza operaciones para establecer, borrar y alternar bits
+ * en una cadena ingresada por el usuario
  * =========================================
  */
 .section .data
-    prompt:         .asciz "Ingrese una cadena de texto: "
-    cadena:         .space 100            // Espacio para la cadena de entrada
-    msg_and:        .asciz "Resultado de AND: "
-    msg_or:         .asciz "Resultado de OR: " 
-    msg_xor:        .asciz "Resultado de XOR: "
-    newline:        .asciz "\n"
-    buffer:         .space 16             // Buffer para convertir números a texto
+    prompt:             .asciz "Ingrese una cadena de texto: "
+    cadena:             .space 100                  // Espacio para la cadena de entrada
+    msg_set_bits:       .asciz "Bits establecidos: "
+    msg_clear_bits:     .asciz "Bits borrados: "
+    msg_toggle_bits:    .asciz "Bits alternados: "
+    newline:            .asciz "\n"
+    buffer:             .space 16                   // Buffer para convertir números a texto
 
 .section .text
 .global _start
@@ -36,20 +36,26 @@ _start:
     // Guardar longitud de la cadena leída
     mov     x19, x0                 // Guardar longitud de la cadena
     
-    // Llamar a la función que realiza operaciones a nivel de bits
+    // Terminar la cadena con NULL
+    ldr     x1, =cadena
+    add     x1, x1, x19             // Posición final
+    mov     w2, #0
+    strb    w2, [x1]                // Añadir terminador NULL
+    
+    // Llamar a la función que establece, borra y alterna bits
     ldr     x0, =cadena
     mov     x1, x19                 // Pasar longitud de la cadena
-    bl      operaciones_bitwise
+    bl      modificar_bits
     
     // Guardar resultados
-    mov     w19, w2                 // Resultado de AND
-    mov     w20, w3                 // Resultado de OR
-    mov     w21, w4                 // Resultado de XOR
+    mov     w19, w2                 // Resultado de establecer bits
+    mov     w20, w3                 // Resultado de borrar bits
+    mov     w21, w4                 // Resultado de alternar bits
     
-    // Imprimir el resultado de AND
+    // Imprimir el resultado de establecer bits
     mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_and            // Mensaje
-    mov     x2, #16                 // Longitud del mensaje
+    ldr     x1, =msg_set_bits       // Mensaje
+    mov     x2, #18                 // Longitud del mensaje
     mov     x8, #64                 // syscall write
     svc     #0
     
@@ -69,9 +75,9 @@ _start:
     mov     x8, #64                 // syscall write
     svc     #0
     
-    // Imprimir el resultado de OR
+    // Imprimir el resultado de borrar bits
     mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_or             // Mensaje
+    ldr     x1, =msg_clear_bits     // Mensaje
     mov     x2, #15                 // Longitud del mensaje
     mov     x8, #64                 // syscall write
     svc     #0
@@ -92,9 +98,9 @@ _start:
     mov     x8, #64                 // syscall write
     svc     #0
     
-    // Imprimir el resultado de XOR
+    // Imprimir el resultado de alternar bits
     mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_xor            // Mensaje
+    ldr     x1, =msg_toggle_bits    // Mensaje
     mov     x2, #16                 // Longitud del mensaje
     mov     x8, #64                 // syscall write
     svc     #0
@@ -120,27 +126,32 @@ _start:
     mov     x8, #93                 // syscall exit
     svc     #0
 
-// Función operaciones_bitwise
+// Función modificar_bits
 // Entrada: x0 = dirección de la cadena, x1 = longitud de la cadena
-// Salida: w2 = resultado de AND, w3 = resultado de OR, w4 = resultado de XOR
-operaciones_bitwise:
+// Salida: w2 = resultado de establecer bits, w3 = resultado de borrar bits, w4 = resultado de alternar bits
+modificar_bits:
     // Inicializar resultados
-    mov     w2, #0xFF       // Resultado de AND inicializado a 0xFF (todos los bits en 1)
-    mov     w3, #0          // Resultado de OR inicializado a 0
-    mov     w4, #0          // Resultado de XOR inicializado a 0
+    mov     w2, #0        // Resultado de establecer bits inicializado a 0
+    mov     w3, #0xFF     // Resultado de borrar bits inicializado a 0xFF (todos los bits en 1)
+    mov     w4, #0        // Resultado de alternar bits inicializado a 0
     
-    mov     x5, #0          // Contador
+    mov     x5, #0        // Contador
     
 loop:
-    cmp     x5, x1          // Comparar contador con longitud
-    beq     fin             // Si hemos procesado toda la cadena, salir
+    cmp     x5, x1        // Comparar contador con longitud
+    beq     fin           // Si hemos procesado toda la cadena, salir
     
-    ldrb    w6, [x0, x5]    // Leer un byte de la cadena
-    add     x5, x5, #1      // Incrementar contador
+    ldrb    w6, [x0, x5]  // Leer un byte de la cadena
+    add     x5, x5, #1    // Incrementar contador
     
-    and     w2, w2, w6      // AND bit a bit
-    orr     w3, w3, w6      // OR bit a bit
-    eor     w4, w4, w6      // XOR bit a bit
+    // Establecer bits: ORR para fijar bits en 1
+    orr     w2, w2, w6    // OR bit a bit para establecer bits
+    
+    // Borrar bits: AND con el complemento para borrar bits
+    bic     w3, w3, w6    // BIC borra bits específicos (w3 AND NOT w6)
+    
+    // Alternar bits: EOR para alternar bits
+    eor     w4, w4, w6    // XOR bit a bit para alternar bits
     
     b       loop
     

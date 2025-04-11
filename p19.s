@@ -1,19 +1,22 @@
 /*
  * =========================================
- * Programa: Operaciones AND, OR, XOR a nivel de bits (p18)
+ * Programa: Desplazamientos a la izquierda y derecha (p19)
  * Autor: Perez Garcia Cesar Michael
- * Descripcion: Realiza operaciones AND, OR, XOR a nivel de bits en una cadena
+ * Descripcion: Realiza desplazamientos a la izquierda y a la derecha en una cadena
  * ingresada por el usuario
  * =========================================
  */
 .section .data
-    prompt:         .asciz "Ingrese una cadena de texto: "
-    cadena:         .space 100            // Espacio para la cadena de entrada
-    msg_and:        .asciz "Resultado de AND: "
-    msg_or:         .asciz "Resultado de OR: " 
-    msg_xor:        .asciz "Resultado de XOR: "
-    newline:        .asciz "\n"
-    buffer:         .space 16             // Buffer para convertir números a texto
+    prompt:           .asciz "Ingrese una cadena de texto: "
+    cadena:           .space 100               // Espacio para la cadena de entrada
+    msg_char:         .asciz "Caracter: '"
+    msg_char_end:     .asciz "' (ASCII: "
+    msg_shift_left:   .asciz "Desplazamiento Izq: "
+    msg_shift_right:  .asciz "Desplazamiento Der: "
+    msg_separator:    .asciz "-------------------------\n"
+    newline:          .asciz "\n"
+    close_paren:      .asciz ")\n"
+    buffer:           .space 16                // Buffer para convertir números a texto
 
 .section .text
 .global _start
@@ -36,111 +39,134 @@ _start:
     // Guardar longitud de la cadena leída
     mov     x19, x0                 // Guardar longitud de la cadena
     
-    // Llamar a la función que realiza operaciones a nivel de bits
+    // Terminar la cadena con NULL
+    ldr     x1, =cadena
+    add     x1, x1, x19             // Posición final
+    mov     w2, #0
+    strb    w2, [x1]                // Añadir terminador NULL
+    
+    // Cargar la dirección de la cadena
     ldr     x0, =cadena
     mov     x1, x19                 // Pasar longitud de la cadena
-    bl      operaciones_bitwise
-    
-    // Guardar resultados
-    mov     w19, w2                 // Resultado de AND
-    mov     w20, w3                 // Resultado de OR
-    mov     w21, w4                 // Resultado de XOR
-    
-    // Imprimir el resultado de AND
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_and            // Mensaje
-    mov     x2, #16                 // Longitud del mensaje
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x1, x19                 // Valor para convertir a texto
-    ldr     x2, =buffer             // Buffer para el resultado
-    bl      int_to_str              // Convertir a texto
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =buffer             // Mensaje
-    mov     x2, #16                 // Longitud máxima
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =newline            // Mensaje
-    mov     x2, #1                  // Longitud
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    // Imprimir el resultado de OR
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_or             // Mensaje
-    mov     x2, #15                 // Longitud del mensaje
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x1, x20                 // Valor para convertir a texto
-    ldr     x2, =buffer             // Buffer para el resultado
-    bl      int_to_str              // Convertir a texto
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =buffer             // Mensaje
-    mov     x2, #16                 // Longitud máxima
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =newline            // Mensaje
-    mov     x2, #1                  // Longitud
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    // Imprimir el resultado de XOR
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =msg_xor            // Mensaje
-    mov     x2, #16                 // Longitud del mensaje
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x1, x21                 // Valor para convertir a texto
-    ldr     x2, =buffer             // Buffer para el resultado
-    bl      int_to_str              // Convertir a texto
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =buffer             // Mensaje
-    mov     x2, #16                 // Longitud máxima
-    mov     x8, #64                 // syscall write
-    svc     #0
-    
-    mov     x0, #1                  // File descriptor 1 (stdout)
-    ldr     x1, =newline            // Mensaje
-    mov     x2, #1                  // Longitud
-    mov     x8, #64                 // syscall write
-    svc     #0
+    bl      desplazamientos
     
     // Salir del programa
     mov     x0, #0                  // Código de salida
     mov     x8, #93                 // syscall exit
     svc     #0
 
-// Función operaciones_bitwise
+// Función desplazamientos
 // Entrada: x0 = dirección de la cadena, x1 = longitud de la cadena
-// Salida: w2 = resultado de AND, w3 = resultado de OR, w4 = resultado de XOR
-operaciones_bitwise:
-    // Inicializar resultados
-    mov     w2, #0xFF       // Resultado de AND inicializado a 0xFF (todos los bits en 1)
-    mov     w3, #0          // Resultado de OR inicializado a 0
-    mov     w4, #0          // Resultado de XOR inicializado a 0
-    
-    mov     x5, #0          // Contador
+desplazamientos:
+    // Guardamos x0 como dirección inicial de la cadena
+    mov     x19, x0                 // Dirección inicial de cadena
+    mov     x20, x1                 // Longitud de la cadena
+    mov     x21, #0                 // Contador
     
 loop:
-    cmp     x5, x1          // Comparar contador con longitud
-    beq     fin             // Si hemos procesado toda la cadena, salir
+    cmp     x21, x20                // Comparar contador con longitud
+    beq     fin                     // Si hemos procesado toda la cadena, salir
     
-    ldrb    w6, [x0, x5]    // Leer un byte de la cadena
-    add     x5, x5, #1      // Incrementar contador
+    ldrb    w22, [x19, x21]         // Leer un byte de la cadena
+    add     x21, x21, #1            // Incrementar contador
     
-    and     w2, w2, w6      // AND bit a bit
-    orr     w3, w3, w6      // OR bit a bit
-    eor     w4, w4, w6      // XOR bit a bit
+    // Realizar los desplazamientos
+    lsl     w23, w22, #1            // Desplazamiento a la izquierda en 1 bit
+    lsr     w24, w22, #1            // Desplazamiento a la derecha en 1 bit
+    
+    // Imprimir "Caracter: '"
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =msg_char           // Mensaje
+    mov     x2, #11                 // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir el carácter
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    mov     x1, x19                 // Dirección de la cadena
+    add     x1, x1, x21             // Ajustar a posición actual
+    sub     x1, x1, #1              // Retroceder 1 para el carácter actual
+    mov     x2, #1                  // Imprimir 1 carácter
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir "' (ASCII: "
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =msg_char_end       // Mensaje
+    mov     x2, #10                 // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Convertir valor ASCII a texto y mostrarlo
+    mov     x1, x22                 // Valor ASCII a convertir
+    ldr     x2, =buffer             // Buffer para el resultado
+    bl      int_to_str              // Convertir a texto
+    
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =buffer             // Buffer con número
+    mov     x2, #16                 // Longitud máxima
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir paréntesis de cierre y salto de línea
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =close_paren        // Mensaje
+    mov     x2, #2                  // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir el resultado del desplazamiento a la izquierda
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =msg_shift_left     // Mensaje
+    mov     x2, #19                 // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    mov     x1, x23                 // Valor del desplazamiento izquierdo
+    ldr     x2, =buffer             // Buffer para el resultado
+    bl      int_to_str              // Convertir a texto
+    
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =buffer             // Buffer con número
+    mov     x2, #16                 // Longitud máxima
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =newline            // Salto de línea
+    mov     x2, #1                  // Longitud
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir el resultado del desplazamiento a la derecha
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =msg_shift_right    // Mensaje
+    mov     x2, #19                 // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    mov     x1, x24                 // Valor del desplazamiento derecho
+    ldr     x2, =buffer             // Buffer para el resultado
+    bl      int_to_str              // Convertir a texto
+    
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =buffer             // Buffer con número
+    mov     x2, #16                 // Longitud máxima
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =newline            // Salto de línea
+    mov     x2, #1                  // Longitud
+    mov     x8, #64                 // syscall write
+    svc     #0
+    
+    // Imprimir separador
+    mov     x0, #1                  // File descriptor 1 (stdout)
+    ldr     x1, =msg_separator      // Mensaje separador
+    mov     x2, #26                 // Longitud del mensaje
+    mov     x8, #64                 // syscall write
+    svc     #0
     
     b       loop
     
